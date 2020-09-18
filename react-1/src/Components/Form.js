@@ -1,4 +1,7 @@
 import React,{useState} from "react";
+import {Link} from "react-router-dom";
+import Login from "./Login";
+import styled from "styled-components";
 
 export default function Form() {
     //state
@@ -20,25 +23,41 @@ export default function Form() {
     const formSubmit = event => {
         event.preventDefault();
     }
+
+    //styling
+    const StyledDiv = styled.div`
+    border: solid green;
+    `
+    const StyledForm = styled.div`
+    border: solid red;
+    width: 20%;
+    display:flex;
+    justify-content: center;
+    margin-left: 40%;
+    margin-top: 10%;
+    `
     return(
+        <StyledDiv>
+        <StyledForm>
+        
         <form onSubmit = {formSubmit}>
-            <label htmlFor = "username">Username</label>
+            <label htmlFor = "username">Username </label>
             <input 
             type = "text"
             name = "username"
             id = "username"
             value = {users.username}
             onChange = {inputChange}
-            />
+            /><br></br>
 
-            <label htmlFor = "password">Password</label>
+            <label htmlFor = "password">Password </label>
             <input
             type = "text"
             name = "password"
             id = "password"
             value = {users.password}
             onChange = {inputChange}
-            />
+            /><br></br>
 
             <label htmlFor = "sellers">Sellers ?</label>
             <input 
@@ -47,8 +66,11 @@ export default function Form() {
             id = "sellers"
             checked = {users.sellers}
             onChange = {inputChange}
-            />
-            <button type ="submit">Sign Up</button>
+            /><br></br>
+            {/* <button type ="submit">Sign Up</button> */}
+            <button type = "submit">Button signup</button>
         </form>
+        </StyledForm>
+        </StyledDiv>
     )
 }

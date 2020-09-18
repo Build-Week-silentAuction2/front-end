@@ -26,7 +26,7 @@ export default function Login(){
             id = "username"
             value = {userLogin.username}
             onChange = {inputChange}
-            />
+            /><br></br>
             
             <label htmlFor = "password">Password</label>
             <input 
@@ -35,7 +35,7 @@ export default function Login(){
             id = "password"
             value = {userLogin.password}
             onChange = {inputChange}
-            />
+            /><br></br>
             <button type = "submit">Log in</button>
         </form>
     )

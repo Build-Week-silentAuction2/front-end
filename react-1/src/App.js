@@ -7,14 +7,21 @@ import Login from "./Components/Login";
 //dependencies 
 import * as yup from "yup";
 import styled from "styled-components";
-import Router from "react-router-dom";
+import {Route} from "react-router-dom";
 import axios from "axios";
 
 function App() {
   return (
     <div className="App">
-      <Form />
-      <Login />
+      <div className = "routes">
+      {/* <Form />
+      <Login /> */}
+      {/* <Route exact path = "/" component = {Form}/>
+      <Route exact path = "/Login" component = {Login}/> */}
+      <Route exact path = "/">
+        <Form/>
+      </Route>
+      </div>
     </div>
   );
 }
