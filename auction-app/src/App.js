@@ -1,13 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Route} from "react-router-dom";
+import PrivateRoute from "../utils/privateRoute";
+// import SellerDashboard from ""
+// import BuyerDashboard from ""
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-       <h1>Testing</h1>
-      </header>
+      <div className="private-routes">
+      <PrivateRoute path="/seller-dashboard" component={SellerDashboard} />
+      <PrivateRoute path="/buyer-dashboard" component={BuyerDashboard} />
+      </div>
     </div>
   );
 }
