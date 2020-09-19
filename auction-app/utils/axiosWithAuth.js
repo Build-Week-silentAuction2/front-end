@@ -4,7 +4,7 @@ function axiosWithAuth() {
   const token = localStorage.getItem("token");
 
   return axios.create({
-    // baseURL: "" waiting for backend URL,
+    baseURL: "https://silent-auction-september.herokuapp.com/",
     headers: {
       Authorization: token
     }
