@@ -7,7 +7,7 @@ import * as serviceWorker from './serviceWorker';
 // remember this toolkit
 import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
-import rootReducer from "../reducer";
+import rootReducer from "./reducer";
 import {BrowserRouter as Router} from "react-router-dom";
 
 
