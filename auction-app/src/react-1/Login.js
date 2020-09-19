@@ -1,4 +1,7 @@
 import React,{useState} from "react";
+import {useHistory} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {loginUser} from "../actions/userAction";
 
 export default function Login(){
     //state for login info
@@ -6,6 +9,10 @@ export default function Login(){
         username: "",
         password: ""
     });
+
+    const history = useHistory();
+    const dispatch = useDispatch();
+
     //onChange
     const inputChange = event => {
         event.persist();
@@ -15,11 +22,15 @@ export default function Login(){
     //onSubmit
     const formSubmit = event => {
         event.preventDefault();
+
+        dispatch(
+            loginUser({ username: userLogin.username, password: userLogin.password }, history)
+          );
     }
 
     return(
         <form onSubmit = {formSubmit}>
-            <label htmlFor = "username">Username</label>
+            <label htmlFor = "username">Username:</label>
             <input 
             type = "text"
             name = "username"
@@ -28,7 +39,7 @@ export default function Login(){
             onChange = {inputChange}
             /><br></br>
             
-            <label htmlFor = "password">Password</label>
+            <label htmlFor = "password">Password:</label>
             <input 
             type = "text"
             name = "password"

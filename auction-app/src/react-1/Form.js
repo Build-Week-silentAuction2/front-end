@@ -1,8 +1,23 @@
 import React,{useState} from "react";
 import {Link} from "react-router-dom";
-import Login from "./Login";
 import styled from "styled-components";
 import * as yup from "yup";
+import {useHistory} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {registerUser} from "../actions/userAction";
+
+ //styling
+ const StyledDiv = styled.div`
+ border: solid green;
+ `
+ const StyledForm = styled.div`
+ border: solid red;
+ width: 20%;
+ display:flex;
+ justify-content: center;
+ margin-left: 40%;
+ margin-top: 10%;
+ `
 
 export default function Form() {
     //state
@@ -12,6 +27,9 @@ export default function Form() {
         // email: "",
         sellers: false
     });
+
+    const history = useHistory();
+    const dispatch = useDispatch();
 
     //formschema
     const formSchema = yup.object().shape({
@@ -59,26 +77,34 @@ export default function Form() {
     //onSubmit
     const formSubmit = event => {
         event.preventDefault();
+
+        let newUser;
+
+        if (users.sellers === true) {
+            newUser = {
+                username: users.username,
+                password: users.password,
+                role: "seller"
+            };
+        }
+
+        if (users.sellers === false) {
+            newUser = {
+                username: users.username,
+                password: users.password,
+                role: "buyer"
+            };
+        }
+
+        dispatch(registerUser(newUser, history))
     }
 
-    //styling
-    const StyledDiv = styled.div`
-    border: solid green;
-    `
-    const StyledForm = styled.div`
-    border: solid red;
-    width: 20%;
-    display:flex;
-    justify-content: center;
-    margin-left: 40%;
-    margin-top: 10%;
-    `
     return(
         <StyledDiv>
         <StyledForm>
-        
+
         <form onSubmit = {formSubmit}>
-            <label htmlFor = "username">Username </label>
+            <label htmlFor="username">Username: </label>
             <input 
             type = "text"
             name = "username"
@@ -87,7 +113,7 @@ export default function Form() {
             onChange = {inputChange}
             /><br></br>
 
-            <label htmlFor = "password">Password </label>
+            <label htmlFor = "password">Password: </label>
             <input
             type = "text"
             name = "password"
@@ -105,7 +131,9 @@ export default function Form() {
             onChange = {inputChange}
             /><br></br>
             {/* <button type ="submit">Sign Up</button> */}
-            <button type = "submit">Button signup</button>
+            <button className="register-btn" type = "submit" onClick={() => history.push(users.sellers === true ? "/seller-dashboard" : "/buyer-dashboard")}>Sign Up</button>
+            <p>Member already?</p>
+            <button className="login-btn" onClick={() => history.push("/login")}>Login</button>
         </form>
         </StyledForm>
         </StyledDiv>
