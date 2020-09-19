@@ -1,16 +1,15 @@
 import React from 'react';
-import './App.css';
+import '../App.css';
 import {Route} from "react-router-dom";
 import PrivateRoute from "../privateRoute";
 import SellerDashboard from "../components/sellerDashboard";
 import BuyerDashboard from "../components/buyerDashboard";
 //components
-import Form from "./Components/Form";
-import Login from "./Components/Login";
+import Form from "./Form";
+import Login from "./Login";
 //dependencies 
-import * as yup from "yup";
+import * as yup from "yup"
 import styled from "styled-components";
-import {Route} from "react-router-dom";
 import axios from "axios";
 
 function App() {
