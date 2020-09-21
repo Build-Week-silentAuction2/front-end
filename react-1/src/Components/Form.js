@@ -1,8 +1,8 @@
 import React,{useState} from "react";
-import {Link} from "react-router-dom";
-import Login from "./Login";
+// import {Link} from "react-router-dom";
+// import Login from "./Login";
 import styled from "styled-components";
-import * as yup from "yup";
+import * as yup from "yup"
 
 export default function Form() {
     //state
@@ -32,7 +32,7 @@ export default function Form() {
     //errorState
     const [errors, setErrors] = useState({
         username: "",
-        password: "",
+        password: ""
     });
 
     //validate
@@ -53,6 +53,7 @@ export default function Form() {
         event.persist();
         console.log("users state: ", users);
         console.log("This is a check for checkbox result : ", event.target.checked);
+        validate(event);
         let value = event.target.type === "checkbox" ? event.target.checked : event.target.value;
         setUsers({...users, [event.target.name]: value});
     }
@@ -62,20 +63,19 @@ export default function Form() {
     }
 
     //styling
-    const StyledDiv = styled.div`
-    border: solid green;
-    `
-    const StyledForm = styled.div`
-    border: solid red;
-    width: 20%;
-    display:flex;
-    justify-content: center;
-    margin-left: 40%;
-    margin-top: 10%;
-    `
+    // const StyledDiv = styled.div`
+    // border: solid green;
+    // `
+    // const StyledForm = styled.div`
+    // border: solid red;
+    // width: 20%;
+    // display:flex;
+    // justify-content: center;
+    // margin-left: 40%;
+    // margin-top: 10%;
+    // `
     return(
-        <StyledDiv>
-        <StyledForm>
+        
         
         <form onSubmit = {formSubmit}>
             <label htmlFor = "username">Username </label>
@@ -86,6 +86,9 @@ export default function Form() {
             value = {users.username}
             onChange = {inputChange}
             /><br></br>
+            {errors.username.length > 0 ? (
+            <p className = "error">{errors.username}</p>)
+             : null}
 
             <label htmlFor = "password">Password </label>
             <input
@@ -95,6 +98,9 @@ export default function Form() {
             value = {users.password}
             onChange = {inputChange}
             /><br></br>
+            {errors.password.length > 0 ? (
+            <p className = "error">{errors.password}</p>)
+             : null}
 
             <label htmlFor = "sellers">Sellers ?</label>
             <input 
@@ -107,7 +113,6 @@ export default function Form() {
             {/* <button type ="submit">Sign Up</button> */}
             <button type = "submit">Button signup</button>
         </form>
-        </StyledForm>
-        </StyledDiv>
+        
     )
 }
