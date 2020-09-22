@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 // import {Link} from "react-router-dom";
 // import Login from "./Login";
 import styled from "styled-components";
@@ -41,6 +41,14 @@ export default function Form() {
         password: ""
         // passwordConfirm: ""
     });
+
+    //ButtonDisabled
+    const [buttonDisabled, setButtonDisabled] = useState(true);
+    useEffect(() => {
+        formSchema.isValid(users).then(valid =>{
+            setButtonDisabled(!valid);
+        });
+    }, [users]);
 
     //validate
     const validate = event => {
@@ -138,7 +146,7 @@ export default function Form() {
             onChange = {inputChange}
             /><br></br>
             {/* <button type ="submit">Sign Up</button> */}
-            <button type = "submit">Button signup</button>
+            <button type = "submit" disabled = {buttonDisabled}>Button signup</button>
         </form>
         
     )
