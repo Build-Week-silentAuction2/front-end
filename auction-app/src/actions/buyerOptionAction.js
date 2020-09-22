@@ -4,8 +4,8 @@
 
 
 // const buyerAction = (id, amount) => dispatch => {
-//     axios.put("", )
-//     .then(res => dispatch({type: SET_BUYER_ACTION, payload: response.data})
+//     axios.put("waiting for url", amount)
+//     .then(res => dispatch({type: PLACE_BID, payload: response.data})
 //     }
 
 // export {SET_BUYER_ACTION, buyerAction};

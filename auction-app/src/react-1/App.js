@@ -11,14 +11,12 @@ import Login from "./Login";
 import * as yup from "yup"
 import styled from "styled-components";
 import axios from "axios";
+import Header from "../components/Header";
 
 function App() {
   return (
     <div className="App">
-      <div className = "routes">
-      <Route exact path = "/" component = {Form}/>
-      <Route exact path = "/login" component = {Login}/>
-      </div>
+      <Header />
       <div className="private-routes">
       <PrivateRoute path="/seller-dashboard" component={SellerDashboard} />
       <PrivateRoute path="/buyer-dashboard" component={BuyerDashboard} />
