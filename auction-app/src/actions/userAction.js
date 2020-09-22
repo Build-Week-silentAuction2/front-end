@@ -17,11 +17,11 @@ function registerUser(user, history) {
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("user", JSON.stringify(response.data));
 
-            if (response.data.role === "seller") {
+            if (response.data.role_id === 2) {
                 history.push("/seller-dashboard");
             }
 
-            if (response.data.role === "buyer") {
+            if (response.data.role_id === 1) {
                 history.push("/buyer-dashboard")
             }
         })
@@ -42,12 +42,12 @@ function loginUser(user, history) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data));
 
-        if (response.data.role === "seller") {
+        if (response.data.role_id === 2) {
             // console.log(response.data.role) for future reference
             history.push("/seller-dashboard");
           }
   
-          if (response.data.role === "buyer") {
+          if (response.data.role_id === 1) {
             // console.log(response.data.role)
             history.push("/buyer-dashboard");
           }

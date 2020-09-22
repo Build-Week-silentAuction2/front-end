@@ -16,7 +16,7 @@ import {registerUser} from "../actions/userAction";
  display:flex;
  justify-content: center;
  margin-left: 40%;
- margin-top: 10%;
+ margin-top: 5%;
  `
 
 export default function Form() {
@@ -43,6 +43,11 @@ export default function Form() {
         .min(6, "Atleast 6 characters")
         .required(),
 
+         // passwordConfirm: yup
+        // .string()
+        // .oneOf([yup.ref(`password`), null], `Password doesn't match.`)
+        // .required(),
+
         sellers: yup
         .boolean()
     })
@@ -53,30 +58,42 @@ export default function Form() {
         password: "",
     });
 
+ 
     //validate
     const validate = event => {
-    yup
-    .reach(formSchema, event.target.name)
-    .validate(event.target.value)
-    .then(valid => {
-        setErrors({...errors, [event.target.name]: ""});
-    })
-    .catch(err => {
-        setErrors({...errors, [event.target.name]: err.errors[0]});
-    });
-    };
+        yup
+        .reach(formSchema, event.target.name)
+        .validate(event.target.value)
+        .then(valid => {
+            setErrors({...errors, [event.target.name]: ""});
+        })
+        .catch(err => {
+            setErrors({...errors, [event.target.name]: err.errors[0]});
+        });
+        };
     
     //onChange
-    const inputChange = event => {
-        event.persist();
-        console.log("users state: ", users);
-        console.log("This is a check for checkbox result : ", event.target.checked);
-        let value = event.target.type === "checkbox" ? event.target.checked : event.target.value;
-        setUsers({...users, [event.target.name]: value});
-    }
+  //onChange
+  const inputChange = event => {
+    event.persist();
+    console.log("users state: ", users);
+    console.log("This is a check for checkbox result : ", event.target.checked);
+    validate(event);
+    let value = event.target.type === "checkbox" ? event.target.checked : event.target.value;
+    setUsers({...users, [event.target.name]: value});
+}
+
     //onSubmit
     const formSubmit = event => {
         event.preventDefault();
+
+         // axios
+        // .post("https://reqres.in/api/users", users)
+        // .then(res => {
+        //     console.log("res axios msg :", res);
+        // })
+        // .catch(err => 
+        //     console.log("axios post err msg :", err));
 
         let newUser;
 
@@ -84,7 +101,7 @@ export default function Form() {
             newUser = {
                 username: users.username,
                 password: users.password,
-                role: "seller"
+                role_id: 2
             };
         }
 
@@ -92,7 +109,7 @@ export default function Form() {
             newUser = {
                 username: users.username,
                 password: users.password,
-                role: "buyer"
+                role_id: 1
             };
         }
 
@@ -121,6 +138,18 @@ export default function Form() {
             value = {users.password}
             onChange = {inputChange}
             /><br></br>
+
+               {/* <label htmlFor = "passwordConfirm">Confirm Password </label>
+            <input
+            type = "password"
+            name = "passwordConfirm"
+            id = "passwordConfirm"
+            value = {users.passwordConfirm}
+            onChange = {inputChange}
+            /><br></br>
+            {errors.passwordConfirm.length > 0 ? (
+            <p className = "error">{errors.passwordConfirm}</p>)
+             : null} */}
 
             <label htmlFor = "sellers">Sellers ?</label>
             <input 

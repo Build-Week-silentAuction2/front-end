@@ -2,13 +2,15 @@ import React, {useState, useEffect} from "react";
 import axiosWithAuth from "../utils/axiosWithAuth";
 import Auctions from "./Auctions";
 import SavedAuctions from "./SavedAuctions";
+import {connect} from "react-redux";
 
 // want to set up a dashboard where buyer can place bids
 // and save those auctions he placed a bid on
 
-const BuyerDashboard = () => {
+const BuyerDashboard = props => {
+    console.log("props from dashboard", props)
     const [watchingAuction, setWatchingAuctions] = useState([])
-    const [auctions, setAuctions] = useState({user_id: "", id: ""});
+    const [auctions, setAuctions] = useState({});
 
     useEffect(() => {
         axiosWithAuth()
@@ -37,4 +39,10 @@ const BuyerDashboard = () => {
     )
 }
 
-export default BuyerDashboard;
+const mapStateToProps = (state) => {
+    return {
+        auctions: state.auction.auctions
+    }
+}
+
+export default connect(mapStateToProps)(BuyerDashboard);
