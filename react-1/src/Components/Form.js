@@ -2,7 +2,7 @@ import React,{useState} from "react";
 // import {Link} from "react-router-dom";
 // import Login from "./Login";
 import styled from "styled-components";
-import * as yup from "yup"
+import * as yup from "yup";
 
 export default function Form() {
     //state
@@ -10,6 +10,7 @@ export default function Form() {
         username: "",
         password: "",
         // email: "",
+        // passwordConfirm: "",
         sellers: false
     });
 
@@ -25,6 +26,11 @@ export default function Form() {
         .min(6, "Atleast 6 characters")
         .required(),
 
+        // passwordConfirm: yup
+        // .string()
+        // .oneOf([yup.ref(`password`), null], `Password doesn't match.`)
+        // .required(),
+
         sellers: yup
         .boolean()
     })
@@ -33,6 +39,7 @@ export default function Form() {
     const [errors, setErrors] = useState({
         username: "",
         password: ""
+        // passwordConfirm: ""
     });
 
     //validate
@@ -60,6 +67,13 @@ export default function Form() {
     //onSubmit
     const formSubmit = event => {
         event.preventDefault();
+        // axios
+        // .post("https://reqres.in/api/users", users)
+        // .then(res => {
+        //     console.log("res axios msg :", res);
+        // })
+        // .catch(err => 
+        //     console.log("axios post err msg :", err));
     }
 
     //styling
@@ -92,7 +106,7 @@ export default function Form() {
 
             <label htmlFor = "password">Password </label>
             <input
-            type = "text"
+            type = "password"
             name = "password"
             id = "password"
             value = {users.password}
@@ -101,6 +115,19 @@ export default function Form() {
             {errors.password.length > 0 ? (
             <p className = "error">{errors.password}</p>)
              : null}
+
+             {/* <label htmlFor = "passwordConfirm">Confirm Password </label>
+            <input
+            type = "password"
+            name = "passwordConfirm"
+            id = "passwordConfirm"
+            value = {users.passwordConfirm}
+            onChange = {inputChange}
+            /><br></br>
+            {errors.passwordConfirm.length > 0 ? (
+            <p className = "error">{errors.passwordConfirm}</p>)
+             : null} */}
+             
 
             <label htmlFor = "sellers">Sellers ?</label>
             <input 
