@@ -1,13 +1,10 @@
-import { userAction } from "../actions";
-
-const {
+import {
   REGISTER_USER_START,
   REGISTER_USER_SUCCESS,
   REGISTER_USER_FAILURE,
   LOGIN_USER_START,
   LOGIN_USER_SUCCESS,
-  LOGIN_USER_FAILURE
-} = userAction;
+  LOGIN_USER_FAILURE} from "../actions/userAction";
 
 const initialState = {
   user: {},

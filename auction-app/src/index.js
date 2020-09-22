@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './react-1/App';
 import * as serviceWorker from './serviceWorker';
 
 // remember this toolkit
 import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
-import rootReducer from "../reducer";
+import rootReducer from "./reducer";
 import {BrowserRouter as Router} from "react-router-dom";
 
 
