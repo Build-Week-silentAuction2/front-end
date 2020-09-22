@@ -4,10 +4,23 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+// remember this toolkit
+import {configureStore} from "@reduxjs/toolkit";
+import {Provider} from "react-redux";
+import rootReducer from "../reducer";
+import {BrowserRouter as Router} from "react-router-dom";
+
+
+const store = configureStore({
+  reducer: rootReducer
+})
+
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
+    <Router>
     <App />
-  </React.StrictMode>,
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );
 
