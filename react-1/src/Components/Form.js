@@ -3,8 +3,10 @@ import React,{useState, useEffect} from "react";
 // import Login from "./Login";
 import styled from "styled-components";
 import * as yup from "yup";
+import Map from "./Map";
+import axios from "axios";
 
-export default function Form() {
+export default function Form(props) {
     //state
     const [users, setUsers] = useState({
         username: "",
@@ -75,13 +77,15 @@ export default function Form() {
     //onSubmit
     const formSubmit = event => {
         event.preventDefault();
-        // axios
-        // .post("https://reqres.in/api/users", users)
-        // .then(res => {
-        //     console.log("res axios msg :", res);
-        // })
-        // .catch(err => 
-        //     console.log("axios post err msg :", err));
+        console.log("Users data:", users)
+        axios
+        .post("https://reqres.in/api/users", users)
+        .then(res => {
+            console.log("res axios msg :", res.data);
+            // props.addNewUser(res.data)
+        })
+        .catch(err => 
+            console.log("axios post err msg :", err));
     }
 
     //styling
@@ -105,6 +109,7 @@ export default function Form() {
             type = "text"
             name = "username"
             id = "username"
+            placeholder = "Username"
             value = {users.username}
             onChange = {inputChange}
             /><br></br>
@@ -117,6 +122,7 @@ export default function Form() {
             type = "password"
             name = "password"
             id = "password"
+            placeholder = "Password"
             value = {users.password}
             onChange = {inputChange}
             /><br></br>
