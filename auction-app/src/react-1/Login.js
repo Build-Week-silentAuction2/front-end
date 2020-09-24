@@ -1,7 +1,8 @@
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {loginUser} from "../actions/userAction";
+import * as yup from "yup";
 
 export default function Login(){
     //state for login info
@@ -22,7 +23,7 @@ export default function Login(){
         
         password: yup
         .string()
-        .min(6, "Atleast 6 characters")
+        .min(3, "Atleast 6 characters")
         .required()
     })
 
@@ -64,17 +65,18 @@ export default function Login(){
     const formSubmit = event => {
         event.preventDefault();
 
-        // axios
-        // .post("https://reqres.in/api/users", userLogin)
-        // .then(res => {
-        //     console.log("res axios msg :", res);
-        // })
-        // .catch(err => 
-        //     console.log("axios post err msg :", err));
+         axiosWithAuth()
+         .post("https://silent-auction-september.herokuapp.com/users/login", userLogin)
+         .then(res => {
+             console.log("res axios msg :", res);
+         })
+         .catch(err => 
+            console.log("axios post err msg :", err));
 
         dispatch(
-            loginUser({ username: userLogin.username, password: userLogin.password }, history)
+            loginUser({ username: userLogin.username, password: userLogin.password })
           );
+         
     }
 
     return(
@@ -102,7 +104,7 @@ export default function Login(){
         {errorLogin.password.length > 0 ? (
         <p className = "error">{errorLogin.password}</p>)
          : null}
-        <button type = "submit" disabled = {buttonDisabled}>Log in</button>
+        <button type = "submit" disabled = {buttonDisabled} onClick={() => history.push("/bid")} >Log in</button>
     </form>
     )
 }

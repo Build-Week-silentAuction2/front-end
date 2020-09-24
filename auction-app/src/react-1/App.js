@@ -12,14 +12,14 @@ import * as yup from "yup"
 import styled from "styled-components";
 import axios from "axios";
 import Header from "../components/Header";
+import Bids from "../components/Bids"
 
 function App() {
   return (
     <div className="App">
       <Header />
       <div className="private-routes">
-      <PrivateRoute path="/seller-dashboard" component={SellerDashboard} />
-      <PrivateRoute path="/buyer-dashboard" component={BuyerDashboard} />
+      <PrivateRoute path="/bid" component={Bids} />
       </div>
     </div>
   );

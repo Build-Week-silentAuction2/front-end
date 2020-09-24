@@ -40,7 +40,7 @@ export default function Form() {
         
         password: yup
         .string()
-        .min(6, "Atleast 6 characters")
+        .min(3, "Atleast 6 characters")
         .required(),
 
          // passwordConfirm: yup
@@ -86,35 +86,38 @@ export default function Form() {
     //onSubmit
     const formSubmit = event => {
         event.preventDefault();
-
-         // axios
-        // .post("https://reqres.in/api/users", users)
-        // .then(res => {
-        //     console.log("res axios msg :", res);
-        // })
-        // .catch(err => 
-        //     console.log("axios post err msg :", err));
-
-        let newUser;
-
-        if (users.sellers === true) {
-            newUser = {
-                username: users.username,
-                password: users.password,
-                role_id: 2
-            };
-        }
-
-        if (users.sellers === false) {
-            newUser = {
-                username: users.username,
-                password: users.password,
-                role_id: 1
-            };
-        }
-
-        dispatch(registerUser(newUser, history))
-    }
+        const formSubmit = event => {
+            event.preventDefault();
+              axiosWithAuth()
+              .post("https://silent-auction-september.herokuapp.com/users/register", users)
+              .then(res => {
+                   console.log("res axios msg :", res);
+               })
+             .catch(err => 
+                 console.log("axios post err msg :", err));
+     
+             let newUser;
+     
+             if (users.sellers === true) {
+                 newUser = {
+                    username: users.username,
+                     password: users.password,
+                      role_id: ""
+                  };
+             }
+     
+               if (users.sellers === false) {
+                   newUser = {
+                       username: users.username,
+                   password: users.password,
+                      role_id: ""
+                  };
+             }
+     
+              dispatch(registerUser(newUser, history))
+              history.push('/bid')
+          }
+     
 
     return(
         <StyledDiv>
@@ -160,7 +163,7 @@ export default function Form() {
             onChange = {inputChange}
             /><br></br>
             {/* <button type ="submit">Sign Up</button> */}
-            <button className="register-btn" type = "submit" onClick={() => history.push(users.sellers === true ? "/seller-dashboard" : "/buyer-dashboard")}>Sign Up</button>
+            <button className="register-btn" type = "submit" onClick={() => history.push("/bid")}>Sign Up</button>
             <p>Member already?</p>
             <button className="login-btn" onClick={() => history.push("/login")}>Login</button>
         </form>

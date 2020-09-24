@@ -16,14 +16,6 @@ function registerUser(user, history) {
             dispatch({ type: REGISTER_USER_SUCCESS, payload: response.data});
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("user", JSON.stringify(response.data));
-
-            if (response.data.role_id === 2) {
-                history.push("/seller-dashboard");
-            }
-
-            if (response.data.role_id === 1) {
-                history.push("/buyer-dashboard")
-            }
         })
         .catch(error => {
             dispatch({type: REGISTER_USER_FAILURE,
@@ -41,16 +33,6 @@ function loginUser(user, history) {
         dispatch({ type: LOGIN_USER_SUCCESS, payload: response.data });
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data));
-
-        if (response.data.role_id === 2) {
-            // console.log(response.data.role) for future reference
-            history.push("/seller-dashboard");
-          }
-  
-          if (response.data.role_id === 1) {
-            // console.log(response.data.role)
-            history.push("/buyer-dashboard");
-          }
         })
         .catch(error => {
             dispatch({
