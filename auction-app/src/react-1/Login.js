@@ -109,7 +109,7 @@ export default function Login(){
         {errorLogin.password.length > 0 ? (
         <p className = "error">{errorLogin.password}</p>)
          : null}
-        <button  onClick={() =>  history.push('/bid')} type = "submit" disabled = {buttonDisabled}>Log in</button>
+        <button  type = "submit" disabled = {buttonDisabled}>Log in</button>
     </form>
     )
 }

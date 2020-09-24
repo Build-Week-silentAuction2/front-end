@@ -1,4 +1,4 @@
-import React, {useReducer, useEffect} from 'react'
+import React, {useReducer, useEffect, useState} from 'react'
 import {CardDeck , Card, Button} from "react-bootstrap"
 import axios from 'axios'
 
@@ -85,26 +85,29 @@ const Bids = () => {
   }
 
   const [state, dispatch] = useReducer(bidReducer, initialState)
+  const [bids, setBids] = useState({});
 
   console.log('State',  state)
   
 
   useEffect(() => {
     axios
-  .post("https://silent-auction-september.herokuapp.com/bids")
+  .get("https://silent-auction-september.herokuapp.com/bids")
   .then(res => {
-      console.log("res axios msg :", res);
-  })
+      console.log(res, 'api working');
+      setBids(res.data)
+       })
   .catch(err => 
      console.log("axios post err msg :", err));
 
 
-  })
+  }, [])
 
 
 
 
 return <>
+<p>{setBids}</p>
 <CardDeck>
   <Card>
     <Card.Img variant="top" src="https://gamespot1.cbsistatic.com/uploads/screen_large/1591/15918215/3735420-ps5thumb3%281%29.jpg" />
@@ -187,7 +190,7 @@ return <>
     </Card.Footer>
   </Card>
   <Card>
-    <Card.Img variant="top" src="https://www.carscoops.com/wp-content/uploads/2020/01/Prior-Design-Lamborghini-Urus-1-1.jpg" />
+    <Card.Img variant="top" src="https://i.pinimg.com/originals/09/79/0d/09790d3aeafad82cdfb26c8391cdf0b1.jpg" />
     <Card.Body>
       <Card.Title>LAMBORGHINI URUS</Card.Title>
       <Card.Text>
@@ -202,6 +205,7 @@ return <>
     </Card.Footer>
   </Card>
 </CardDeck>
+
 </>
 }
 export default Bids
