@@ -9,7 +9,7 @@ function Map(props) {
         //         <div className = "test" key = {user.id}>
         //         <h1>Welcome {user.username}, to Silent Auction # 2 ! </h1>
         //         <p>You have the role of a {user.sellers === true ? "Seller and Buyer!" : "Buyer!"}</p>
-        //         {/* <p>id: {user.id}</p> */}
+        //         <p>id: {user.id}</p>
         //     </div>
         //     ))}
         // </div>
