@@ -4,6 +4,7 @@ import {Route} from "react-router-dom";
 import PrivateRoute from "../privateRoute";
 import SellerDashboard from "../components/sellerDashboard";
 import BuyerDashboard from "../components/buyerDashboard";
+import Bids from '../components/Bids'
 //components
 import Form from "./Form";
 import Login from "./Login";
@@ -18,7 +19,8 @@ function App() {
     <div className="App">
       <Header />
       <div className="private-routes">
-      <PrivateRoute path="/seller-dashboard" component={SellerDashboard} />
+        {/* <Route path='/bid' components={Bids} /> */}
+      <PrivateRoute path="/bid" component={Bids} />
       <PrivateRoute path="/buyer-dashboard" component={BuyerDashboard} />
       </div>
     </div>

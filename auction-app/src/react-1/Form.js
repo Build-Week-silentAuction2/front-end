@@ -5,6 +5,8 @@ import * as yup from "yup";
 import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {registerUser} from "../actions/userAction";
+import axios from 'axios'
+import axiosWithAuth from "../utils/axiosWithAuth";
 
  //styling
  const StyledDiv = styled.div`
@@ -40,7 +42,7 @@ export default function Form() {
         
         password: yup
         .string()
-        .min(6, "Atleast 6 characters")
+        .min(3, "Atleast 3 characters")
         .required(),
 
          // passwordConfirm: yup
@@ -83,38 +85,45 @@ export default function Form() {
     setUsers({...users, [event.target.name]: value});
 }
 
-    //onSubmit
-    const formSubmit = event => {
-        event.preventDefault();
-
-         // axios
-        // .post("https://reqres.in/api/users", users)
-        // .then(res => {
-        //     console.log("res axios msg :", res);
-        // })
-        // .catch(err => 
-        //     console.log("axios post err msg :", err));
+    
+      const formSubmit = event => {
+       event.preventDefault();
+         axiosWithAuth()
+         .post("https://silent-auction-september.herokuapp.com/users/register", users)
+         .then(res => {
+              console.log("res axios msg :", res);
+          })
+        .catch(err => 
+            console.log("axios post err msg :", err));
 
         let newUser;
 
         if (users.sellers === true) {
             newUser = {
-                username: users.username,
+               username: users.username,
                 password: users.password,
-                role_id: 2
-            };
+                 role_id: ""
+             };
         }
 
-        if (users.sellers === false) {
-            newUser = {
-                username: users.username,
-                password: users.password,
-                role_id: 1
-            };
+          if (users.sellers === false) {
+              newUser = {
+                  username: users.username,
+              password: users.password,
+                 role_id: ""
+             };
         }
 
-        dispatch(registerUser(newUser, history))
-    }
+         dispatch(registerUser(users))
+         history.push('/bid')
+     }
+
+    // const formSubmit = () => {
+    //     axiosWithAuth()
+    //     dispatch(registerUser(users,history))
+
+    // }
+    
 
     return(
         <StyledDiv>
@@ -160,7 +169,7 @@ export default function Form() {
             onChange = {inputChange}
             /><br></br>
             {/* <button type ="submit">Sign Up</button> */}
-            <button className="register-btn" type = "submit" onClick={() => history.push(users.sellers === true ? "/seller-dashboard" : "/buyer-dashboard")}>Sign Up</button>
+            <button className="register-btn" type = "submit" onClick={() =>  (formSubmit)}>Sign Up</button>
             <p>Member already?</p>
             <button className="login-btn" onClick={() => history.push("/login")}>Login</button>
         </form>

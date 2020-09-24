@@ -18,11 +18,11 @@ function registerUser(user, history) {
             localStorage.setItem("user", JSON.stringify(response.data));
 
             if (response.data.role_id === 2) {
-                history.push("/seller-dashboard");
+                // history.push("/bid");
             }
 
             if (response.data.role_id === 1) {
-                history.push("/buyer-dashboard")
+                // history.push("/bid")
             }
         })
         .catch(error => {
@@ -43,13 +43,13 @@ function loginUser(user, history) {
         localStorage.setItem("user", JSON.stringify(response.data));
 
         if (response.data.role_id === 2) {
-            // console.log(response.data.role) for future reference
-            history.push("/seller-dashboard");
+             console.log(response.data.role) 
+            // history.push("/bid");
           }
   
           if (response.data.role_id === 1) {
-            // console.log(response.data.role)
-            history.push("/buyer-dashboard");
+             console.log(response.data.role)
+            // history.push("/bid");
           }
         })
         .catch(error => {
