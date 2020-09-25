@@ -22,7 +22,8 @@ function App() {
       <Route exact path = "/">
       <Link to = "/Login">Login</Link>
       <Link to = "/Map">Map</Link>
-        <Form addNewUser = {addNewUser}/>
+        {/* <Form addNewUser = {addNewUser}/> */}
+        <Form/>
       </Route>
       <Route exact path = "/Login">
       <Link to = "/">Sign up </Link>

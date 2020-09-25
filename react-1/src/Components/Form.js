@@ -6,6 +6,24 @@ import * as yup from "yup";
 import Map from "./Map";
 import axios from "axios";
 
+// styling
+const StyledDiv = styled.div`
+border: solid green;
+background: #ededed;
+`
+const StyledForm = styled.form`
+border: solid black;
+padding: 13%;
+background: #ededed;
+`
+
+const StyledButton = styled.button`
+background: skyblue;`
+
+const StyledFooter = styled.footer`
+padding:1.5%;
+background: #474747;`
+
 export default function Form(props) {
     //state
     const [users, setUsers] = useState({
@@ -88,22 +106,12 @@ export default function Form(props) {
             console.log("axios post err msg :", err));
     }
 
-    //styling
-    // const StyledDiv = styled.div`
-    // border: solid green;
-    // `
-    // const StyledForm = styled.div`
-    // border: solid red;
-    // width: 20%;
-    // display:flex;
-    // justify-content: center;
-    // margin-left: 40%;
-    // margin-top: 10%;
-    // `
     return(
-        
-        
-        <form onSubmit = {formSubmit}>
+        <React.Fragment>
+        <StyledDiv>
+            <h2>Sign Up</h2> 
+        </StyledDiv>  
+        <StyledForm onSubmit = {formSubmit}>
             <label htmlFor = "username">Username </label>
             <input 
             type = "text"
@@ -151,9 +159,9 @@ export default function Form(props) {
             checked = {users.sellers}
             onChange = {inputChange}
             /><br></br>
-            {/* <button type ="submit">Sign Up</button> */}
-            <button type = "submit" disabled = {buttonDisabled}>Button signup</button>
-        </form>
-        
+            <StyledButton type = "submit" disabled = {buttonDisabled}>Join Now !</StyledButton>
+        </StyledForm>
+        <StyledFooter>testing</StyledFooter>
+        </React.Fragment>
     )
 }
