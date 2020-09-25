@@ -1,48 +1,35 @@
-import React, {useState, useEffect} from "react";
-import axiosWithAuth from "../utils/axiosWithAuth";
-import Auctions from "./Auctions";
-import SavedAuctions from "./SavedAuctions";
-import {connect} from "react-redux";
+import React, { useState, useEffect, useContext } from 'react';
+import {AuctionContext} from "../contexts/auctionContext";
+import SavedAuction from "./SavedAuctions";
+import AuctionCard from './AuctionCard';
+import axios from "axios";
+const auctionsList = 'https://silent-auction-september.herokuapp.com/auctions'
 
-// want to set up a dashboard where buyer can place bids
-// and save those auctions he placed a bid on
+const BuyersDashboard = () => {
+  const auctions = useContext(AuctionContext)
 
-const BuyerDashboard = props => {
-    console.log("props from dashboard", props)
-    const [watchingAuction, setWatchingAuctions] = useState([])
-    const [auctions, setAuctions] = useState({});
-
-    useEffect(() => {
-        axiosWithAuth()
-        .get("waiting for url")
-        .then(response => {
-            console.log("axios from buyer dashboard", response)
-            setWatchingAuctions(response.data)
-        })
-        .catch(error => {
-            console.log(error)
-        })
+  useEffect(() => {
+    axios.get("https://silent-auction-september.herokuapp.com/auctions/items")
+    .then(response => {
+      console.log("response from buyer dashboard", response.data)
     })
+    .catch(error => console.log("unable to get data", error))
+  },[])
 
-    return (
-        <div>
-        <h2>Your bids:</h2>
-        <div className="dashboard">
-        <SavedAuctions list={watchingAuction}/>
-        </div>
-        {
-            auctions.map(auction => {
-               return <Auctions auction={auction} />
-            })
-        }
-        </div>
-    )
-}
-
-const mapStateToProps = (state) => {
-    return {
-        auctions: state.auction.auctions
+  return (
+    <div>
+      <h2>Your watched Bids:</h2>
+      <div className="buyers-dashboard">
+      <SavedAuction  />
+      {
+        auctions.auctionsList.map(auction => (
+            <AuctionCard auction={auction}/> 
+        ))
     }
+      </div>
+    
+    </div>
+  )
 }
 
-export default connect(mapStateToProps)(BuyerDashboard);
+export default BuyersDashboard;

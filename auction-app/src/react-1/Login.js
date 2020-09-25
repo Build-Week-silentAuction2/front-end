@@ -1,8 +1,40 @@
 import React,{useState, useEffect} from "react";
-import {useHistory} from "react-router-dom";
+import {useHistory, Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {loginUser} from "../actions/userAction";
-import * as yup from "yup";
+import * as yup from 'yup'
+import axios from 'axios'
+import axiosWithAuth from "../utils/axiosWithAuth";
+import styled from "styled-components"
+
+// styling
+const StyledHeader = styled.header`
+background: #474747;
+color: #cfcfcf;
+padding-bottom: 1%;`
+
+const StyledDiv = styled.div`
+border: solid green;
+background: #ededed;
+`
+const StyledForm = styled.form`
+padding:3%;
+background: #ededed;
+`
+const StyledPadding = styled.div`
+padding:1%;
+`
+const StyledButton = styled.button`
+background: skyblue;`
+
+const StyledFooter = styled.footer`
+padding:3%;
+background: #474747;
+color: #cfcfcf;`
+
+const StyledPaddingBottom = styled.div`
+padding-bottom: 15%;`
+
 
 export default function Login(){
     //state for login info
@@ -23,7 +55,7 @@ export default function Login(){
         
         password: yup
         .string()
-        .min(3, "Atleast 6 characters")
+        .min(3, "Atleast 3 characters")
         .required()
     })
 
@@ -55,6 +87,8 @@ export default function Login(){
         });
         };
 
+        
+
     //onChange
     const inputChange = event => {
         event.persist();
@@ -69,42 +103,62 @@ export default function Login(){
          .post("https://silent-auction-september.herokuapp.com/users/login", userLogin)
          .then(res => {
              console.log("res axios msg :", res);
+             setTimeout(() => {
+                history.push('/auctionPost')
+              }, 4000)
          })
          .catch(err => 
             console.log("axios post err msg :", err));
 
         dispatch(
             loginUser({ username: userLogin.username, password: userLogin.password })
+            
           );
          
     }
 
     return(
-        <form onSubmit = {formSubmit}>
-        <label htmlFor = "username">Username</label>
-        <input 
-        type = "text"
-        name = "username"
-        id = "username"
-        value = {userLogin.username}
-        onChange = {inputChange}
-        /><br></br>
-        {errorLogin.username.length > 0 ? (
-        <p className = "error">{errorLogin.username}</p>)
-         : null}
+        <React.Fragment>
+            <StyledHeader>
+            <h1>Silent Auction</h1>
+            </StyledHeader>
+        <StyledForm onSubmit = {formSubmit}>
+            <h2>Log in</h2>
+            <label htmlFor = "username">Username</label>
+            <input 
+            type = "text"
+            name = "username"
+            id = "username"
+            placeholder = "Username"
+            value = {userLogin.username}
+            onChange = {inputChange}
+            /><br></br>
+            {errorLogin.username.length > 0 ? (
+            <p className = "error">{errorLogin.username}</p>)
+             : null}
+             <StyledPadding></StyledPadding>
 
-        <label htmlFor = "password">Password</label>
-        <input 
-        type = "text"
-        name = "password"
-        id = "password"
-        value = {userLogin.password}
-        onChange = {inputChange}
-        /><br></br>
-        {errorLogin.password.length > 0 ? (
-        <p className = "error">{errorLogin.password}</p>)
-         : null}
-        <button type = "submit" disabled = {buttonDisabled} onClick={() => history.push("/bid")} >Log in</button>
-    </form>
+            <label htmlFor = "password">Password </label>
+            <input 
+            type = "text"
+            name = "password"
+            id = "password"
+            placeholder = "Password"
+            value = {userLogin.password}
+            onChange = {inputChange}
+            /><br></br>
+            {errorLogin.password.length > 0 ? (
+            <p className = "error">{errorLogin.password}</p>)
+             : null}
+             <StyledPadding></StyledPadding>
+             <StyledPaddingBottom>
+            <StyledButton type = "submit" disabled = {buttonDisabled} onClick={formSubmit}>Log in</StyledButton>
+            </StyledPaddingBottom>
+        </StyledForm>
+        <StyledFooter>
+            <p>Contact us at thisemail@example.com </p>
+            <p>250 Montgomery St, San Franciso, CA 94104 </p>
+        </StyledFooter>
+        </React.Fragment>
     )
 }

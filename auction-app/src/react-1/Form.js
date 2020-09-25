@@ -1,23 +1,38 @@
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import styled from "styled-components";
 import * as yup from "yup";
 import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {registerUser} from "../actions/userAction";
+import axios from 'axios'
+import axiosWithAuth from "../utils/axiosWithAuth";
 
- //styling
- const StyledDiv = styled.div`
- border: solid green;
- `
- const StyledForm = styled.div`
- border: solid red;
- width: 20%;
- display:flex;
- justify-content: center;
- margin-left: 40%;
- margin-top: 5%;
- `
+// styling
+const StyledHeader = styled.header`
+background: #474747;
+color: #cfcfcf;
+padding-bottom: 1%;`
+const StyledDiv = styled.div`
+background: #ededed;
+`
+const StyledForm = styled.form`
+padding:3%;
+background: #ededed;
+`
+const StyledPadding = styled.div`
+padding:0.3%;
+`
+const StyledButton = styled.button`
+background: skyblue;`
+
+const StyledFooter = styled.footer`
+padding:2%;
+background: #474747;
+color: #cfcfcf;`
+
+const StyledPaddingBottom = styled.div`
+padding-bottom: 15%;`
 
 export default function Form() {
     //state
@@ -40,7 +55,7 @@ export default function Form() {
         
         password: yup
         .string()
-        .min(3, "Atleast 6 characters")
+        .min(3, "Atleast 3 characters")
         .required(),
 
          // passwordConfirm: yup
@@ -57,6 +72,14 @@ export default function Form() {
         username: "",
         password: "",
     });
+
+      //ButtonDisabled
+      const [buttonDisabled, setButtonDisabled] = useState(true);
+      useEffect(() => {
+          formSchema.isValid(users).then(valid =>{
+              setButtonDisabled(!valid);
+          });
+      }, [users]);
 
  
     //validate
@@ -83,91 +106,109 @@ export default function Form() {
     setUsers({...users, [event.target.name]: value});
 }
 
-    //onSubmit
-    const formSubmit = event => {
-        event.preventDefault();
-        const formSubmit = event => {
-            event.preventDefault();
-              axiosWithAuth()
-              .post("https://silent-auction-september.herokuapp.com/users/register", users)
-              .then(res => {
-                   console.log("res axios msg :", res);
-               })
-             .catch(err => 
-                 console.log("axios post err msg :", err));
-     
-             let newUser;
-     
-             if (users.sellers === true) {
-                 newUser = {
-                    username: users.username,
-                     password: users.password,
-                      role_id: ""
-                  };
-             }
-     
-               if (users.sellers === false) {
-                   newUser = {
-                       username: users.username,
-                   password: users.password,
-                      role_id: ""
-                  };
-             }
-     
-              dispatch(registerUser(newUser, history))
-              history.push('/bid')
-          }
-     
+    
+      const formSubmit = event => {
+       event.preventDefault();
+         axiosWithAuth()
+         .post("https://silent-auction-september.herokuapp.com/users/register", users)
+         .then(res => {
+              console.log("res axios msg :", res);
+          })
+        .catch(err => 
+            console.log("axios post err msg :", err));
+
+        let newUser;
+
+        if (users.sellers === true) {
+            newUser = {
+               username: users.username,
+                password: users.password,
+                 role_id: ""
+             };
+        }
+
+          if (users.sellers === false) {
+              newUser = {
+                  username: users.username,
+              password: users.password,
+                 role_id: ""
+             };
+        }
+
+         dispatch(registerUser(users))
+     }
+
+    // const formSubmit = () => {
+    //     axiosWithAuth()
+    //     dispatch(registerUser(users,history))
+
+    // }
+    
 
     return(
-        <StyledDiv>
-        <StyledForm>
+        <React.Fragment>
+        <StyledHeader>
+        <h1>Silent Auction</h1> 
+        </StyledHeader>  
+    <StyledForm onSubmit = {formSubmit}>
+        <h2>Sign Up</h2>
+        <StyledPadding>
+        <label htmlFor = "username">Username </label>
+        <input 
+        type = "text"
+        name = "username"
+        id = "username"
+        placeholder = "Username"
+        value = {users.username}
+        onChange = {inputChange}
+        /><br></br>
+        {errors.username.length > 0 ? (
+        <p className = "error">{errors.username}</p>)
+         : null}
+         </StyledPadding>
 
-        <form onSubmit = {formSubmit}>
-            <label htmlFor="username">Username: </label>
-            <input 
-            type = "text"
-            name = "username"
-            id = "username"
-            value = {users.username}
-            onChange = {inputChange}
-            /><br></br>
+         <StyledPadding>
+        <label htmlFor = "password">Password </label>
+        <input
+        type = "password"
+        name = "password"
+        id = "password"
+        placeholder = "Password"
+        value = {users.password}
+        onChange = {inputChange}
+        /><br></br>
+        {errors.password.length > 0 ? (
+        <p className = "error">{errors.password}</p>)
+         : null}
+         </StyledPadding>
+         {/* <label htmlFor = "passwordConfirm">Confirm Password </label>
+        <input
+        type = "password"
+        name = "passwordConfirm"
+        id = "passwordConfirm"
+        value = {users.passwordConfirm}
+        onChange = {inputChange}
+        /><br></br>
+        {errors.passwordConfirm.length > 0 ? (
+        <p className = "error">{errors.passwordConfirm}</p>)
+         : null} */}
+         
+         <StyledPadding>
+        <label htmlFor = "sellers">Sellers ?</label>
+        <input 
+        type = "checkbox"
+        name = "sellers"
+        id = "sellers"
+        checked = {users.sellers}
+        onChange = {inputChange}
+        /><br></br>
+        </StyledPadding>
+        <StyledPaddingBottom>
+        <StyledButton type = "submit" disabled = {buttonDisabled} onClick={() => (formSubmit)}>Join Now !</StyledButton>
 
-            <label htmlFor = "password">Password: </label>
-            <input
-            type = "text"
-            name = "password"
-            id = "password"
-            value = {users.password}
-            onChange = {inputChange}
-            /><br></br>
+        </StyledPaddingBottom>
+    </StyledForm>
+    </React.Fragment>
 
-               {/* <label htmlFor = "passwordConfirm">Confirm Password </label>
-            <input
-            type = "password"
-            name = "passwordConfirm"
-            id = "passwordConfirm"
-            value = {users.passwordConfirm}
-            onChange = {inputChange}
-            /><br></br>
-            {errors.passwordConfirm.length > 0 ? (
-            <p className = "error">{errors.passwordConfirm}</p>)
-             : null} */}
-
-            <label htmlFor = "sellers">Sellers ?</label>
-            <input 
-            type = "checkbox"
-            name = "sellers"
-            id = "sellers"
-            checked = {users.sellers}
-            onChange = {inputChange}
-            /><br></br>
-            {/* <button type ="submit">Sign Up</button> */}
-            <button className="register-btn" type = "submit" onClick={() => history.push("/bid")}>Sign Up</button>
-            <p>Member already?</p>
-            <button className="login-btn" onClick={() => history.push("/login")}>Login</button>
-        </form>
-        </StyledForm>
-        </StyledDiv>
     )
 }

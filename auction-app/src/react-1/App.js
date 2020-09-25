@@ -1,28 +1,35 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import '../App.css';
 import {Route} from "react-router-dom";
 import PrivateRoute from "../privateRoute";
-import SellerDashboard from "../components/sellerDashboard";
-import BuyerDashboard from "../components/buyerDashboard";
+import Home from "../components/Home";
+import AddEdit from "../components/Add&Edit";
+import SingleItem from "../components/singleItem";
+import AuctionPost from "../components/actionpost";
 //components
-import Form from "./Form";
-import Login from "./Login";
+import LoginSignUp from "../components/Login&Signup";
 //dependencies 
-import * as yup from "yup"
-import styled from "styled-components";
-import axios from "axios";
 import Header from "../components/Header";
-import Bids from "../components/Bids"
+
+// API https://silent-auction-september.herokuapp.com/auctions
+// API for items https://silent-auction-september.herokuapp.com/items
 
 function App() {
+
   return (
-    <div className="App">
+    <div className="App-box">
       <Header />
-      <div className="private-routes">
-      <PrivateRoute path="/bid" component={Bids} />
+      <div className="protected-route">
+      <Route exact path="/" component={Home} />
+      <PrivateRoute exact path="/auctionpost" component={AuctionPost} />
+      <Route path="/login/signup" component={LoginSignUp} />
+     <PrivateRoute path="/addedit" component={AddEdit} />
+     <Route path="/items/:id" component={SingleItem} />
       </div>
     </div>
-  );
+  )
+
 }
+
 
 export default App;

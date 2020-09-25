@@ -9,7 +9,7 @@ const initState = {
             name: "golden gun",
             description: "it's goooold",
             price: "$30,000",
-            image: "??"
+            image: "https://vignette.wikia.nocookie.net/jamesbond/images/5/52/Scaramanga%27s_Golden_Gun.jpg/revision/latest?cb=20121030205430"
         }
     }
 ]
