@@ -2,14 +2,19 @@ import axios from "axios";
 import React,{useState, useEffect} from "react";
 import * as yup from "yup";
 import styled from "styled-components";
+import {Link} from "react-router-dom";
 
 // styling
+const StyledHeader = styled.header`
+background: #474747;
+color: #cfcfcf;
+padding-bottom: 1%;`
+
 const StyledDiv = styled.div`
 border: solid green;
 background: #ededed;
 `
 const StyledForm = styled.form`
-border: solid black;
 padding:3%;
 background: #ededed;
 `
@@ -21,7 +26,8 @@ background: skyblue;`
 
 const StyledFooter = styled.footer`
 padding:3%;
-background: #474747;`
+background: #474747;
+color: #cfcfcf;`
 
 const StyledPaddingBottom = styled.div`
 padding-bottom: 15%;`
@@ -93,9 +99,10 @@ export default function Login(){
 
     return(
         <React.Fragment>
-            <StyledDiv>
+            <StyledHeader>
+             <Link to = "/">Sign up </Link>
             <h1>Silent Auction</h1>
-            </StyledDiv>
+            </StyledHeader>
         <StyledForm onSubmit = {formSubmit}>
             <h2>Log in</h2>
             <label htmlFor = "username">Username</label>
@@ -129,7 +136,10 @@ export default function Login(){
             <StyledButton type = "submit" disabled = {buttonDisabled}>Log in</StyledButton>
             </StyledPaddingBottom>
         </StyledForm>
-        <StyledFooter>testing</StyledFooter>
+        <StyledFooter>
+            <p>Contact us at thisemail@example.com </p>
+            <p>250 Montgomery St, San Franciso, CA 94104 </p>
+        </StyledFooter>
         </React.Fragment>
     )
 }

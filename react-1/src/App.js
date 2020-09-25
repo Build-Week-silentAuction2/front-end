@@ -20,13 +20,13 @@ function App() {
     <div className="App">
       <div className = "routes">
       <Route exact path = "/">
-      <Link to = "/Login">Login</Link>
-      <Link to = "/Map">Map</Link>
+      {/* <Link to = "/Login">Login</Link>
+      <Link to = "/Map">Map</Link> */}
         {/* <Form addNewUser = {addNewUser}/> */}
         <Form/>
       </Route>
       <Route exact path = "/Login">
-      <Link to = "/">Sign up </Link>
+      {/* <Link to = "/">Sign up </Link> */}
         <Login/>
       </Route>
       {/* <Route exact path = "/Map">

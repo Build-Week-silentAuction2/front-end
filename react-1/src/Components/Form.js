@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from "react";
-// import {Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 // import Login from "./Login";
 import styled from "styled-components";
 import * as yup from "yup";
@@ -7,12 +7,14 @@ import Map from "./Map";
 import axios from "axios";
 
 // styling
+const StyledHeader = styled.header`
+background: #474747;
+color: #cfcfcf;
+padding-bottom: 1%;`
 const StyledDiv = styled.div`
-border: solid green;
 background: #ededed;
 `
 const StyledForm = styled.form`
-border: solid black;
 padding:3%;
 background: #ededed;
 `
@@ -23,8 +25,9 @@ const StyledButton = styled.button`
 background: skyblue;`
 
 const StyledFooter = styled.footer`
-padding:3%;
-background: #474747;`
+padding:2%;
+background: #474747;
+color: #cfcfcf;`
 
 const StyledPaddingBottom = styled.div`
 padding-bottom: 15%;`
@@ -113,9 +116,10 @@ export default function Form(props) {
 
     return(
         <React.Fragment>
-        <StyledDiv>
+            <StyledHeader>
+            <Link to = "/Login">Login</Link>
             <h1>Silent Auction</h1> 
-        </StyledDiv>  
+            </StyledHeader>  
         <StyledForm onSubmit = {formSubmit}>
             <h2>Sign Up</h2>
             <StyledPadding>
@@ -174,7 +178,10 @@ export default function Form(props) {
 
             </StyledPaddingBottom>
         </StyledForm>
-        <StyledFooter>testing</StyledFooter>
+        <StyledFooter>
+            <p>Contact us at thisemail@example.com </p>
+            <p>250 Montgomery St, San Franciso, CA 94104 </p>
+            </StyledFooter>
         </React.Fragment>
     )
 }
