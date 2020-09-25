@@ -1,8 +1,30 @@
 import axios from "axios";
 import React,{useState, useEffect} from "react";
 import * as yup from "yup";
+import styled from "styled-components";
 
+// styling
+const StyledDiv = styled.div`
+border: solid green;
+background: #ededed;
+`
+const StyledForm = styled.form`
+border: solid black;
+padding:3%;
+background: #ededed;
+`
+const StyledPadding = styled.div`
+padding:1%;
+`
+const StyledButton = styled.button`
+background: skyblue;`
 
+const StyledFooter = styled.footer`
+padding:3%;
+background: #474747;`
+
+const StyledPaddingBottom = styled.div`
+padding-bottom: 15%;`
 export default function Login(){
     //state for login info
     const [userLogin, setuserLogin] = useState({
@@ -70,31 +92,44 @@ export default function Login(){
     };
 
     return(
-        <form onSubmit = {formSubmit}>
+        <React.Fragment>
+            <StyledDiv>
+            <h1>Silent Auction</h1>
+            </StyledDiv>
+        <StyledForm onSubmit = {formSubmit}>
+            <h2>Log in</h2>
             <label htmlFor = "username">Username</label>
             <input 
             type = "text"
             name = "username"
             id = "username"
+            placeholder = "Username"
             value = {userLogin.username}
             onChange = {inputChange}
             /><br></br>
             {errorLogin.username.length > 0 ? (
             <p className = "error">{errorLogin.username}</p>)
              : null}
+             <StyledPadding></StyledPadding>
 
-            <label htmlFor = "password">Password</label>
+            <label htmlFor = "password">Password </label>
             <input 
             type = "text"
             name = "password"
             id = "password"
+            placeholder = "Password"
             value = {userLogin.password}
             onChange = {inputChange}
             /><br></br>
             {errorLogin.password.length > 0 ? (
             <p className = "error">{errorLogin.password}</p>)
              : null}
-            <button type = "submit" disabled = {buttonDisabled}>Log in</button>
-        </form>
+             <StyledPadding></StyledPadding>
+             <StyledPaddingBottom>
+            <StyledButton type = "submit" disabled = {buttonDisabled}>Log in</StyledButton>
+            </StyledPaddingBottom>
+        </StyledForm>
+        <StyledFooter>testing</StyledFooter>
+        </React.Fragment>
     )
 }
