@@ -13,16 +13,21 @@ background: #ededed;
 `
 const StyledForm = styled.form`
 border: solid black;
-padding: 13%;
+padding:3%;
 background: #ededed;
 `
-
+const StyledPadding = styled.div`
+padding:0.3%;
+`
 const StyledButton = styled.button`
 background: skyblue;`
 
 const StyledFooter = styled.footer`
-padding:1.5%;
+padding:3%;
 background: #474747;`
+
+const StyledPaddingBottom = styled.div`
+padding-bottom: 15%;`
 
 export default function Form(props) {
     //state
@@ -109,9 +114,11 @@ export default function Form(props) {
     return(
         <React.Fragment>
         <StyledDiv>
-            <h2>Sign Up</h2> 
+            <h1>Silent Auction</h1> 
         </StyledDiv>  
         <StyledForm onSubmit = {formSubmit}>
+            <h2>Sign Up</h2>
+            <StyledPadding>
             <label htmlFor = "username">Username </label>
             <input 
             type = "text"
@@ -124,7 +131,9 @@ export default function Form(props) {
             {errors.username.length > 0 ? (
             <p className = "error">{errors.username}</p>)
              : null}
+             </StyledPadding>
 
+             <StyledPadding>
             <label htmlFor = "password">Password </label>
             <input
             type = "password"
@@ -137,7 +146,7 @@ export default function Form(props) {
             {errors.password.length > 0 ? (
             <p className = "error">{errors.password}</p>)
              : null}
-
+             </StyledPadding>
              {/* <label htmlFor = "passwordConfirm">Confirm Password </label>
             <input
             type = "password"
@@ -150,7 +159,7 @@ export default function Form(props) {
             <p className = "error">{errors.passwordConfirm}</p>)
              : null} */}
              
-
+             <StyledPadding>
             <label htmlFor = "sellers">Sellers ?</label>
             <input 
             type = "checkbox"
@@ -159,7 +168,11 @@ export default function Form(props) {
             checked = {users.sellers}
             onChange = {inputChange}
             /><br></br>
+            </StyledPadding>
+            <StyledPaddingBottom>
             <StyledButton type = "submit" disabled = {buttonDisabled}>Join Now !</StyledButton>
+
+            </StyledPaddingBottom>
         </StyledForm>
         <StyledFooter>testing</StyledFooter>
         </React.Fragment>
