@@ -1,10 +1,10 @@
 import React,{useState, useEffect} from "react";
-import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {loginUser} from "../actions/userAction";
 import * as yup from 'yup'
 import axios from 'axios'
 import axiosWithAuth from "../utils/axiosWithAuth";
+import {BrowserRouter as Router, useHistory} from "react-router-dom";
 
 export default function Login(){
     //state for login info
@@ -14,6 +14,7 @@ export default function Login(){
     });
 
     const history = useHistory();
+    
     const dispatch = useDispatch();
 
      //formLoginschema
@@ -81,10 +82,13 @@ export default function Login(){
             loginUser({ username: userLogin.username, password: userLogin.password })
             
           );
+        history.push("/bid")
+        console.log('users')
          
     }
 
     return(
+        
         <form onSubmit = {formSubmit}>
         <label htmlFor = "username">Username</label>
         <input 
@@ -110,6 +114,7 @@ export default function Login(){
         <p className = "error">{errorLogin.password}</p>)
          : null}
         <button  type = "submit" disabled = {buttonDisabled}>Log in</button>
+        
     </form>
     )
 }

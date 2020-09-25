@@ -1,5 +1,5 @@
 import React, {useReducer, useEffect, useState} from 'react'
-import {CardDeck , Card, Button} from "react-bootstrap"
+import {CardDeck , Card, Button, Badge} from "react-bootstrap"
 import axios from 'axios'
 
 
@@ -13,8 +13,8 @@ const Bids = () => {
       case "PLAYSTATION_BID":
         return {
           ...state,
-          PlaystationBid: state.PlaystationBid + action.payload,
-          PlaystationAmount: action.payload
+          playStationBid: state.playStationBid + action.payload,
+          playStationBid: action.payload
         }
 
 
@@ -22,7 +22,7 @@ const Bids = () => {
           return{
             ...state,
             xboxBid: state.xboxBid + action.payload,
-            xboxAmount: action.payload
+            xboxBid: action.payload
 
           }
 
@@ -38,7 +38,7 @@ const Bids = () => {
           return{
             ...state,
             tvBid: state.tvBid + action.payload,
-            tvAmount: action.payload
+            tvBid: action.payload
 
           }
 
@@ -58,6 +58,51 @@ const Bids = () => {
 
           }
 
+          
+
+          case 'REMOVELAMBO_BID':
+          return{
+            ...state,
+            lamboBid: state.lamboBid - action.payload,
+            removeLambo: action.payload
+          }
+
+          case 'REMOVE_TV':
+          return{
+            ...state,
+            tvBid: state.tvBid - action.payload,
+            removeTV: action.payload
+          }
+
+          case 'REMOVE_MACBOOK':
+          return{
+            ...state,
+            macBookBid: state.macBookBid - action.payload,
+            removeMacbook: action.payload
+          }
+
+          case 'REMOVE_IPHONE':
+            return{
+              ...state,
+              iphoneBid: state.iphoneBid - action.payload,
+              removeIphone: action.payload
+            }
+
+            case 'REMOVE_XBOX':
+            return{
+              ...state,
+              xboxBid: state.xboxBid - action.payload,
+              removeXbox: action.payload
+            }
+
+            case 'REMOVE_PLAYSTATION':
+              return{
+                ...state,
+                playStationBid: state.playStationBid - action.payload,
+                removePlaystation: action.payload
+              }
+
+
 
 
         default:
@@ -66,22 +111,20 @@ const Bids = () => {
   }
 
   const initialState = {
-    PlaystationBid: 499.99,
-    PlaystationAmount: 0,
+    playStationBid: 499.99,
+    removePlaystation: 0,
     xboxBid: 499.99,
-    xboxAmount: 0,
+    removeXbox: 0,
     iphoneBid: 1500.00,
-    iphoneAmount: 0,
+    removeIphone: 0,
     tvBid: 600.99,
-    tvAmount: 0,
+    removeTv: 0,
     macBookBid: 1200.99,
-    macBookAmount: 0,
+    removeMacbook: 0,
     lamboBid: 250000,
-    lamboAmount: 0,
-    
-    
-    isBidAmount: false,
-    isRemoveAmount: false
+    removeLambo:0,
+    remove: 0,
+
   }
 
   const [state, dispatch] = useReducer(bidReducer, initialState)
@@ -107,9 +150,13 @@ const Bids = () => {
 
 
 return <>
-<p>{setBids}</p>
+<Button variant="primary">
+ CURRENT BIDS <Badge variant="light">6</Badge>
+  <span className="sr-only"></span>
+</Button>
 <CardDeck>
   <Card>
+    
     <Card.Img variant="top" src="https://gamespot1.cbsistatic.com/uploads/screen_large/1591/15918215/3735420-ps5thumb3%281%29.jpg" />
     <Card.Body>
       <Card.Title>PLAYSTATION</Card.Title>
@@ -118,9 +165,11 @@ return <>
       </Card.Text>
     </Card.Body>
     <Card.Footer>
-    <Button onClick={() => dispatch({type: "PLAYSTATION_BID", payload: 100})}variant="success">BID</Button> {' '}
+    <Button onClick={() => dispatch({type: "PLAYSTATION_BID", payload: 499.99})}variant="success">BID</Button> {' '}
+    <Button onClick={() => dispatch({type: "REMOVE_PLAYSTATION", payload: 499.99})}variant="danger">UNBID</Button> {' '}
+  <p></p>
   <p>
- Current bid <b>${state.PlaystationBid} USD</b>
+ Current bid <b>${state.playStationBid} USD</b>
      </p>
     </Card.Footer>
   </Card>
@@ -133,9 +182,12 @@ return <>
       </Card.Text>
     </Card.Body>
     <Card.Footer>
-    <Button onClick={() => dispatch({type: "XBOX_BID", payload: 100})}variant="success">BID</Button> {' '}
+    <Button onClick={() => dispatch({type: "XBOX_BID", payload: 499.99})}variant="success">BID</Button> {' '}
+    <Button onClick={() => dispatch({type: "REMOVE_XBOX", payload: 499.99})}variant="danger">UNBID</Button> {' '}
+    
+    
     <p>
- Current bid <b>${state.xboxBid} USD</b>
+Current bid <b>${state.xboxBid} USD</b>
   </p>
     
     </Card.Footer>
@@ -149,7 +201,8 @@ return <>
       </Card.Text>
     </Card.Body>
     <Card.Footer>
-    <Button onClick={() => dispatch({type: "IPHONE_BID", payload: 100})}variant="success">BID</Button> {' '}
+    <Button onClick={() => dispatch({type: "IPHONE_BID", payload: 1500})}variant="success">BID</Button> {' '}
+    <Button onClick={() => dispatch({type: "REMOVE_IPHONE", payload: 1500})}variant="danger">UNBID</Button>
      <p>
    Current bid <b>${state.iphoneBid} USD</b>
    </p>
@@ -167,7 +220,8 @@ return <>
       </Card.Text>
     </Card.Body>
     <Card.Footer>
-    <Button onClick={() => dispatch({type: "TV_BID", payload: 100})}variant="success">BID</Button> {' '}
+    <Button onClick={() => dispatch({type: "TV_BID", payload: 600.99})}variant="success">BID</Button> {' '}
+    <Button onClick={() => dispatch({type: "REMOVE_TV", payload: 600.99})}variant="danger">UNBID</Button>
   <p>
  Current bid <b>${state.tvBid} USD</b>
      </p>
@@ -182,9 +236,11 @@ return <>
       </Card.Text>
     </Card.Body>
     <Card.Footer>
-    <Button onClick={() => dispatch({type: "MACBOOK_BID", payload: 100})}variant="success">BID</Button> {' '}
+    <Button onClick={() => dispatch({type: "MACBOOK_BID", payload: 1200.99})}variant="success">BID</Button> {' '}
+    <Button onClick={() => dispatch({type: "REMOVE_MACBOOK", payload: 1200.99})}variant="danger">UNBID</Button>
+    
     <p>
- Current bid <b>${state.macBookBid} USD</b>
+ Current bid <b>${state.macBookBid}  USD</b>
   </p>
     
     </Card.Footer>
@@ -198,10 +254,13 @@ return <>
       </Card.Text>
     </Card.Body>
     <Card.Footer>
-    <Button onClick={() => dispatch({type: "LAMBO_BID", payload: 100})}variant="success">BID</Button> {' '}
+    <Button onClick={() => dispatch({type: "LAMBO_BID", payload: 250000})}variant="success">BID</Button> {' '}
+    <Button onClick={() => dispatch({type: "REMOVELAMBO_BID", payload: 250000})}variant="danger">UNBID
+    </Button> {' '}
      <p>
    Current bid <b>${state.lamboBid} USD</b>
    </p>
+   
     </Card.Footer>
   </Card>
 </CardDeck>

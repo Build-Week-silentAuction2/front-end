@@ -91,10 +91,10 @@ export default function Form() {
          axiosWithAuth()
          .post("https://silent-auction-september.herokuapp.com/users/register", users)
          .then(res => {
-              console.log("res axios msg :", res);
+              console.log("new user added:", res);
           })
         .catch(err => 
-            console.log("axios post err msg :", err));
+            console.log("no user was added:", err));
 
         let newUser;
 
