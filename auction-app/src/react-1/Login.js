@@ -105,7 +105,7 @@ export default function Login(){
              console.log("res axios msg :", res);
              setTimeout(() => {
                 history.push('/auctionPost')
-              }, 4000)
+              }, 2000)
          })
          .catch(err => 
             console.log("axios post err msg :", err));
