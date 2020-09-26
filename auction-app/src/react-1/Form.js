@@ -120,7 +120,7 @@ export default function Form() {
         .catch(err => 
             console.log("axios post err msg :", err));
 
-        let newUser;
+        let newUser
 
         if (users.role_id === true) {
             newUser = {
