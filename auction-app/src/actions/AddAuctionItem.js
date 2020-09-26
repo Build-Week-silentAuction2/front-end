@@ -19,7 +19,7 @@ const AddAuctionItem = createSlice({
     reducers: {
       addAuctionItem(state, action) {
         axios
-          .post('https://silent-auction-september.herokuapp.com/items', action.payload)
+          .post('https://silent-auction-september.herokuapp.com/items/', action.payload)
           .then( response => {
           console.log(response, action.payload)
           })

@@ -40,7 +40,7 @@ export default function Form() {
         username: "",
         password: "",
         // email: "",
-        sellers: false
+        role_id: 2
     });
 
     const history = useHistory();
@@ -63,8 +63,8 @@ export default function Form() {
         // .oneOf([yup.ref(`password`), null], `Password doesn't match.`)
         // .required(),
 
-        sellers: yup
-        .boolean()
+        role_id: yup
+        .number()
     })
 
     //errorState
@@ -99,11 +99,16 @@ export default function Form() {
   //onChange
   const inputChange = event => {
     event.persist();
-    console.log("users state: ", users);
-    console.log("This is a check for checkbox result : ", event.target.checked);
     validate(event);
-    let value = event.target.type === "checkbox" ? event.target.checked : event.target.value;
-    setUsers({...users, [event.target.name]: value});
+    // let value = event.target.type === "select" ? event.target.selected : event.target.value;
+    setUsers({...users, [event.target.name]: event.target.value});
+    // setUsers({...users, role_id: parseInt(users.role_id)})
+    if (typeof users.role_id === "string") {
+     setUsers({...users, role_id: parseInt(users.role_id)})
+    } else {
+
+    }
+    console.log("users state: ", users);
 }
 
     
@@ -119,19 +124,19 @@ export default function Form() {
 
         let newUser;
 
-        if (users.sellers === true) {
+        if (users.role_id === true) {
             newUser = {
                username: users.username,
                 password: users.password,
-                 role_id: ""
+                 role_id: 2
              };
         }
 
-          if (users.sellers === false) {
+          if (users.role_id === false) {
               newUser = {
                   username: users.username,
               password: users.password,
-                 role_id: ""
+                 role_id: 1
              };
         }
 
@@ -194,14 +199,12 @@ export default function Form() {
          : null} */}
          
          <StyledPadding>
-        <label htmlFor = "sellers">Sellers ?</label>
-        <input 
-        type = "checkbox"
-        name = "sellers"
-        id = "sellers"
-        checked = {users.sellers}
-        onChange = {inputChange}
-        /><br></br>
+         <label htmlFor="Member Type">Choose a member type:</label>
+         <select name="role_id" id="role_id" onChange={inputChange} value={users.role_id}>
+             <option value="1">Buyer</option>
+             <option value="2">Seller</option>
+         </select>
+        <br></br>
         </StyledPadding>
         <StyledPaddingBottom>
         <StyledButton type = "submit" disabled = {buttonDisabled} onClick={() => (formSubmit)}>Join Now !</StyledButton>

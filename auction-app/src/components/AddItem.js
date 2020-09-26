@@ -46,7 +46,7 @@ const AddItem = props  => {
     console.log("Submitted!");
     setLoading(true)
 
-    axios.post(`https://silent-auction-september.herokuapp.com/items`, addItem)
+    axios.post(`https://silent-auction-september.herokuapp.com/items/`, addItem)
     .then( response => {
       console.log(response)
       setTimeout(() => {
@@ -140,7 +140,7 @@ const AddItem = props  => {
     <input
     name="imageLink"
     type="text"
-    id="imageLink"
+    id=""
      onChange={handleChanges}/>
      
 

@@ -34,12 +34,6 @@ function loginUser(user, history) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data));
 
-        if (user.role_id === 1) {
-            history.push("/seller")
-        } else if (user.role_id === 2) {
-            history.push("/buyer")
-        }
-
         })
         .catch(error => {
             dispatch({
