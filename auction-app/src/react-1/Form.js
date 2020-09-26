@@ -105,9 +105,7 @@ export default function Form() {
     // setUsers({...users, role_id: parseInt(users.role_id)})
     if (typeof users.role_id === "string") {
      setUsers({...users, role_id: parseInt(users.role_id)})
-    } else {
-
-    }
+    } 
     console.log("users state: ", users);
 }
 
