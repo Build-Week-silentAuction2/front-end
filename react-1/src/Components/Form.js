@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from "react";
-import {Link, useHistory} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 // import Login from "./Login";
 import styled from "styled-components";
 import * as yup from "yup";
@@ -122,8 +122,8 @@ export default function Form(props) {
     return(
         <React.Fragment>
             <StyledHeader>
-            <Link to = "/Login">Login</Link>
-            <Link to = "/Map">Map</Link>
+            <NavLink exact to = "/Login" style = {{color: "#cfcfcf"}} >Login</NavLink>
+            <NavLink exact to = "/Map" style = {{color: "#cfcfcf"}}>Map</NavLink>
             <h1>Silent Auction</h1> 
             </StyledHeader>  
         <StyledForm onSubmit = {formSubmit}>
@@ -179,9 +179,11 @@ export default function Form(props) {
             onChange = {inputChange}
             /><br></br>
             </StyledPadding>
+            <StyledPadding>
+            <StyledButton type = "submit" disabled = {buttonDisabled} >Join Now !</StyledButton>
+            </StyledPadding>
             <StyledPaddingBottom>
-            <StyledButton type = "submit" disabled = {buttonDisabled} onClick ={routeLogin}>Join Now !</StyledButton>
-
+            <button onClick ={routeLogin}> Login onClick</button>
             </StyledPaddingBottom>
         </StyledForm>
         <StyledFooter>

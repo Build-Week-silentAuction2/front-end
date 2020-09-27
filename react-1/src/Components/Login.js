@@ -2,7 +2,7 @@ import axios from "axios";
 import React,{useState, useEffect} from "react";
 import * as yup from "yup";
 import styled from "styled-components";
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 // styling
 const StyledHeader = styled.header`
@@ -100,7 +100,7 @@ export default function Login(){
     return(
         <React.Fragment>
             <StyledHeader>
-             <Link to = "/">Sign up </Link>
+             <NavLink exact to = "/" style = {{color: "#cfcfcf"}} activeStyle ={{color: "red"}}>Sign up </NavLink>
             <h1>Silent Auction</h1>
             </StyledHeader>
         <StyledForm onSubmit = {formSubmit}>
