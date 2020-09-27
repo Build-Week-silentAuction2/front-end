@@ -12,28 +12,28 @@ import {Route,Link} from "react-router-dom";
 // import axios from "axios";
 
 function App() {
-  // const [newUser, setNewUser] = useState([]);
-  // const addNewUser = userData => {
-  //   setNewUser([...newUser, userData]);
-  // }
+  const [newUser, setNewUser] = useState([]);
+  const addNewUser = userData => {
+    setNewUser([...newUser, userData]);
+  }
   return (
     <div className="App">
       <div className = "routes">
       <Route exact path = "/">
       {/* <Link to = "/Login">Login</Link>
       <Link to = "/Map">Map</Link> */}
-        {/* <Form addNewUser = {addNewUser}/> */}
-        <Form/>
+        <Form addNewUser = {addNewUser}/>
+        {/* <Form/> */}
       </Route>
       <Route exact path = "/Login">
       {/* <Link to = "/">Sign up </Link> */}
         <Login/>
       </Route>
-      {/* <Route exact path = "/Map">
+      <Route exact path = "/Map">
       <Link to = "/Login">Login</Link>
       <Link to = "/">Sign up </Link>
         <Map newUser = {newUser}/>
-      </Route> */}
+      </Route>
       </div>
     </div>
   );

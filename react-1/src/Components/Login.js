@@ -19,7 +19,7 @@ padding:3%;
 background: #ededed;
 `
 const StyledPadding = styled.div`
-padding:1%;
+padding:0.3%;
 `
 const StyledButton = styled.button`
 background: skyblue;`
@@ -30,7 +30,7 @@ background: #474747;
 color: #cfcfcf;`
 
 const StyledPaddingBottom = styled.div`
-padding-bottom: 15%;`
+padding-bottom: 17%;`
 export default function Login(){
     //state for login info
     const [userLogin, setuserLogin] = useState({

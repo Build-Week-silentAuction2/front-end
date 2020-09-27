@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from "react";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 // import Login from "./Login";
 import styled from "styled-components";
 import * as yup from "yup";
@@ -32,6 +32,8 @@ color: #cfcfcf;`
 const StyledPaddingBottom = styled.div`
 padding-bottom: 15%;`
 
+
+
 export default function Form(props) {
     //state
     const [users, setUsers] = useState({
@@ -41,7 +43,10 @@ export default function Form(props) {
         // passwordConfirm: "",
         sellers: false
     });
-
+    const history = useHistory();
+    const routeLogin = () => {
+        history.push("/Login");
+    }
     //formschema
     const formSchema = yup.object().shape({
         username: yup
@@ -60,7 +65,7 @@ export default function Form(props) {
         // .required(),
 
         sellers: yup
-        .boolean()
+        .boolean() 
     })
 
     //errorState
@@ -108,7 +113,7 @@ export default function Form(props) {
         .post("https://reqres.in/api/users", users)
         .then(res => {
             console.log("res axios msg :", res.data);
-            // props.addNewUser(res.data)
+            props.addNewUser(res.data)
         })
         .catch(err => 
             console.log("axios post err msg :", err));
@@ -118,6 +123,7 @@ export default function Form(props) {
         <React.Fragment>
             <StyledHeader>
             <Link to = "/Login">Login</Link>
+            <Link to = "/Map">Map</Link>
             <h1>Silent Auction</h1> 
             </StyledHeader>  
         <StyledForm onSubmit = {formSubmit}>
@@ -174,7 +180,7 @@ export default function Form(props) {
             /><br></br>
             </StyledPadding>
             <StyledPaddingBottom>
-            <StyledButton type = "submit" disabled = {buttonDisabled}>Join Now !</StyledButton>
+            <StyledButton type = "submit" disabled = {buttonDisabled} onClick ={routeLogin}>Join Now !</StyledButton>
 
             </StyledPaddingBottom>
         </StyledForm>
